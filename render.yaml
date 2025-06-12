@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: devsblog
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: devsblog-db
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_SERVE_STATIC_FILES
+        value: true
+
+databases:
+  - name: devsblog-db
+    databaseName: devsblog
+    user: devsblog
+    plan: free 
