@@ -1,0 +1,16 @@
+<div class="list-group-item list-group-item-action <%= 'list-group-item-light' unless notification.read_at? %> py-3 lh-tight">
+  <div class="d-flex w-100 align-items-center justify-content-between">
+    <strong class="mb-1">
+      <%= link_to notification.actor.username, profile_path(notification.actor), class: "text-decoration-none" %>
+      <%= notification.action %>
+    </strong>
+    <small class="text-muted"><%= time_ago_in_words(notification.created_at) %> ago</small>
+  </div>
+  <div class="col-10 mb-1 small">
+    <% if notification.notifiable.is_a?(Post) %>
+      on <%= link_to notification.notifiable.caption.truncate(50), post_path(notification.notifiable), class: "text-decoration-none" %>
+    <% else %>
+      <%= link_to "View", notification.notifiable, class: "text-decoration-none" %>
+    <% end %>
+  </div>
+</div> 

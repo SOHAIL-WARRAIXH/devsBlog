@@ -1,0 +1,17 @@
+<% if user_signed_in? %>
+  <% if post.liked_by?(current_user) %>
+    <%= button_to unlike_post_path(post), 
+        method: :delete, 
+        class: 'btn btn-outline-danger btn-sm me-2 animate-hover-lift',
+        data: { turbo: true } do %>
+      <i class="bi bi-heart-fill"></i> Unlike
+    <% end %>
+  <% else %>
+    <%= button_to like_post_path(post), 
+        method: :post, 
+        class: 'btn btn-outline-primary btn-sm me-2 animate-hover-lift',
+        data: { turbo: true } do %>
+      <i class="bi bi-heart"></i> Like
+    <% end %>
+  <% end %>
+<% end %> 

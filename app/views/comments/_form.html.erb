@@ -1,0 +1,9 @@
+<div id="new_comment" class="card p-4 mb-4 animate-fade-in">
+  <h5>Leave a Comment</h5>
+  <%= form_with(model: [post, comment], data: { turbo: true }) do |f| %>
+    <div class="mb-3">
+      <%= f.text_area :content, class: "form-control", rows: 3, required: true, placeholder: "Write your comment here..." %>
+    </div>
+    <%= f.submit "Add Comment", class: "btn btn-primary" %>
+  <% end %>
+</div> 

@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="card mb-4 animate-fade-in">
+      <div class="card-body text-center">
+        <% if @user.avatar.attached? %>
+          <%= image_tag @user.avatar.variant(resize_to_limit: [150, 150]), class: 'rounded-circle mb-3' %>
+        <% end %>
+        <h2 class="card-title"><%= @user.name %></h2>
+        <p class="text-muted">@<%= @user.username %></p>
+        <p class="card-text"><%= @user.bio %></p>
+        <% if can? :update, @user %>
+          <%= link_to 'Edit Profile', edit_profile_path, class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="card animate-fade-in">
+      <div class="card-body">
+        <h5 class="card-title">Stats</h5>
+        <div class="row text-center">
+          <div class="col">
+            <h4><%= @user.posts.count %></h4>
+            <small class="text-muted">Posts</small>
+          </div>
+          <div class="col">
+            <h4><%= @user.comments.count %></h4>
+            <small class="text-muted">Comments</small>
+          </div>
+          <div class="col">
+            <h4><%= @user.likes.count %></h4>
+            <small class="text-muted">Likes</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <h2 class="mb-4">Posts</h2>
+    <% if @posts.any? %>
+      <% @posts.each do |post| %>
+        <div class="card mb-4 animate-fade-in">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <% if post.user.avatar.attached? %>
+                <%= image_tag post.user.avatar.variant(resize_to_limit: [40, 40]), class: 'rounded-circle me-2' %>
+              <% else %>
+                <i class="bi bi-person-circle fs-4 me-2 text-muted"></i>
+              <% end %>
+              <p class="card-text text-muted mb-0">
+                Posted by <%= link_to post.user.username, profile_path(post.user), class: 'text-decoration-none fw-bold text-dark' %>
+                <%= time_ago_in_words(post.created_at) %> ago
+              </p>
+            </div>
+
+            <% if post.images.attached? %>
+              <div class="mb-3 text-center">
+                <%= image_tag post.images.first.variant(resize_to_limit: [600, 400]), class: 'img-fluid rounded mb-2' %>
+              </div>
+            <% end %>
+            
+            <% if post.caption.present? %>
+              <p class="card-text mb-3"><%= truncate(post.caption, length: 250) %></p>
+            <% end %>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex">
+                <span class="me-3 text-danger">
+                  <i class="bi bi-heart-fill"></i> <%= post.like_count %>
+                </span>
+                <span class="text-primary">
+                  <i class="bi bi-chat-left-dots-fill"></i> <%= post.comment_count %>
+                </span>
+              </div>
+              <%= link_to 'View Post', post_path(post), class: 'btn btn-primary btn-sm' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="d-flex justify-content-center mt-4">
+        <%= paginate @posts %>
+      </div>
+    <% else %>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text text-center">No posts yet.</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

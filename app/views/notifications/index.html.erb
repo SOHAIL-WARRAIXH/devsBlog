@@ -1,0 +1,21 @@
+<div class="container mt-4 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="mb-4">Your Notifications</h1>
+
+      <%= turbo_stream_from current_user, :notifications %>
+
+      <div id="notifications" class="list-group">
+        <% if @notifications.any? %>
+          <% @notifications.each do |notification| %>
+            <%= render "notifications/notification", notification: notification %>
+          <% end %>
+        <% else %>
+          <div class="card p-4 text-center">
+            <p class="mb-0 text-muted">No new notifications.</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

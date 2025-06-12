@@ -1,0 +1,22 @@
+<% if message.user.present? && local_assigns[:current_user].present? %>
+  <div class="message <%= message.user == local_assigns[:current_user] ? 'sent' : 'received' %> animate-fade-in" id="<%= dom_id(message) %>">
+    <div class="message-content">
+      <%= message.content %>
+    </div>
+    <div class="message-meta d-flex justify-content-between align-items-center">
+      <small>
+        <%= message.user.username %> • <%= time_ago_in_words(message.created_at) %> ago
+      </small>
+      <div class="message-actions">
+        <button class="action-button" title="Like message">
+          <i class="far fa-heart"></i>
+          <span class="sr-only">Like</span>
+        </button>
+        <button class="action-button" title="Reply to message">
+          <i class="far fa-comment"></i>
+          <span class="sr-only">Reply</span>
+        </button>
+      </div>
+    </div>
+  </div>
+<% end %> 

@@ -1,0 +1,23 @@
+<div class="nested-fields mb-3 card card-body bg-light">
+  <div class="mb-3">
+    <%= f.label :image, class: 'form-label' %>
+    <%= f.file_field :image, class: 'form-control' %>
+    <% if f.object.image.attached? %>
+      <div class="mt-2">
+        <%= image_tag f.object.image.variant(resize_to_limit: [200, 200]), class: 'img-thumbnail' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :caption, class: 'form-label' %>
+    <%= f.text_area :caption, class: 'form-control', rows: 3, placeholder: 'Enter caption' %>
+  </div>
+
+  <% if f.object.persisted? %>
+    <div class="form-check">
+      <%= f.check_box :_destroy, class: 'form-check-input remove_image_field', data: { confirm: 'Are you sure you want to remove this image?' } %>
+      <%= f.label :_destroy, 'Remove image', class: 'form-check-label' %>
+    </div>
+  <% end %>
+</div> 

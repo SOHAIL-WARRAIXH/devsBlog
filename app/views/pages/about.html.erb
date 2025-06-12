@@ -1,0 +1,114 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h1 class="card-title text-center mb-4">About BlogApp</h1>
+          
+          <div class="about-section mb-4">
+            <h2 class="h4 mb-3">Our Mission</h2>
+            <p class="lead">
+              BlogApp is a modern blogging platform designed to connect people through meaningful conversations and shared experiences.
+            </p>
+          </div>
+
+          <div class="about-section mb-4">
+            <h2 class="h4 mb-3">Features</h2>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <div class="feature-item">
+                  <i class="fas fa-pen-fancy text-primary mb-2"></i>
+                  <h3 class="h5">Rich Text Editor</h3>
+                  <p>Create beautiful posts with our intuitive editor.</p>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="feature-item">
+                  <i class="fas fa-comments text-primary mb-2"></i>
+                  <h3 class="h5">Real-time Chat</h3>
+                  <p>Connect with other users through instant messaging.</p>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="feature-item">
+                  <i class="fas fa-heart text-primary mb-2"></i>
+                  <h3 class="h5">Social Features</h3>
+                  <p>Like, comment, and share content with ease.</p>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="feature-item">
+                  <i class="fas fa-mobile-alt text-primary mb-2"></i>
+                  <h3 class="h5">Mobile Friendly</h3>
+                  <p>Access BlogApp from any device, anywhere.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-section">
+            <h2 class="h4 mb-3">Technology Stack</h2>
+            <div class="tech-stack">
+              <div class="tech-item">
+                <i class="fab fa-ruby text-danger"></i>
+                <span>Ruby on Rails</span>
+              </div>
+              <div class="tech-item">
+                <i class="fab fa-bootstrap text-primary"></i>
+                <span>Bootstrap 5</span>
+              </div>
+              <div class="tech-item">
+                <i class="fab fa-js text-warning"></i>
+                <span>JavaScript</span>
+              </div>
+              <div class="tech-item">
+                <i class="fas fa-database text-info"></i>
+                <span>PostgreSQL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :styles do %>
+  <style>
+    .feature-item {
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      background: var(--light-color);
+      height: 100%;
+      transition: transform var(--transition-speed);
+    }
+
+    .feature-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-item i {
+      font-size: 2rem;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .tech-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--light-color);
+      border-radius: var(--border-radius);
+    }
+
+    .tech-item i {
+      font-size: 1.5rem;
+    }
+  </style>
+<% end %> 

@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "post_#{@post.id}_like_button" do %>
+  <%= render "likes/like_button", post: @post %>
+<% end %>
+
+<%= turbo_stream.update "post_#{@post.id}_like_count" do %>
+  <%= render "likes/like_count", post: @post %>
+<% end %> 

@@ -1,0 +1,15 @@
+<%= turbo_stream.append "messages" do %>
+  <%= render partial: "messages/message", locals: { message: @message, current_user: current_user } %>
+<% end %>
+
+<%= turbo_stream.update "message_form" do %>
+  <%= render "form", conversation: @conversation, message: Message.new %>
+<% end %>
+
+<%= turbo_stream.update "conversation_#{@conversation.id}_last_message" do %>
+  <div class="d-flex w-100 justify-content-between">
+    <h6 class="mb-1"><%= @conversation.other_participant(current_user)&.username || 'Unknown User' %></h6>
+    <small><%= time_ago_in_words(@message.created_at) %> ago</small>
+  </div>
+  <p class="mb-1 text-truncate"><%= @message.content %></p>
+<% end %> 

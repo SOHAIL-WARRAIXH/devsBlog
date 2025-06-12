@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary animate-fade-in rounded-pill">
+  <div class="container">
+    <%= link_to 'devBlogs', root_path, class: 'navbar-brand animate-hover-lift' %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item me-2">
+          <%= link_to root_path, class: "btn btn-outline-light animate-hover-lift" do %>
+            <i class="bi bi-house-door-fill me-1"></i> Home
+          <% end %>
+        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to new_post_path, class: "nav-link animate-hover-lift #{'active' if current_page?(new_post_path)}" do %>
+              <i class="bi bi-plus-circle-fill me-1"></i> New Post
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to profile_path(current_user), class: "nav-link animate-hover-lift #{'active' if controller_name == 'profiles'}" do %>
+              <i class="bi bi-person-fill me-1"></i> My Profile
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to conversations_path, class: "nav-link animate-hover-lift #{'active' if controller_name == 'conversations'}" do %>
+              <i class="bi bi-chat-dots-fill me-1"></i> Chat
+              <% if unread_messages_count > 0 %>
+                <span class="badge bg-danger rounded-pill animate-fade-in"><%= unread_messages_count %></span>
+              <% end %>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to notifications_path, class: "nav-link animate-hover-lift #{'active' if controller_name == 'notifications'}" do %>
+              <i class="bi bi-bell-fill me-1"></i> Notifications
+              <% if unread_notifications_count > 0 %>
+                <span class="badge bg-danger rounded-pill animate-fade-in"><%= unread_notifications_count %></span>
+              <% end %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+      <ul class="navbar-nav">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= button_to destroy_user_session_path, method: :delete, class: 'btn btn-link nav-link animate-hover-lift' do %>
+              <i class="bi bi-box-arrow-right me-1"></i> Sign Out
+            <% end %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to new_user_session_path, class: "nav-link animate-hover-lift #{'active' if current_page?(new_user_session_path)}" do %>
+              <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-light" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav> 

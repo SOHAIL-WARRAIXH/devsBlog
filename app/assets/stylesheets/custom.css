@@ -1,0 +1,365 @@
+/* CSS Styling for your existing ERB template */
+/* Add this to your Rails app/assets/stylesheets/ or in a <style> tag */
+
+:root {
+    --primary-color: #0d6efd;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --card-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    transition: var(--transition);
+}
+
+/* Keep white background */
+body {
+    background-color: white !important;
+}
+
+/* Enhanced card styling for your posts */
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+    transform: translateY(0);
+    overflow: hidden;
+    position: relative;
+    background: white;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(13, 110, 253, 0.1), transparent);
+    transition: left 0.6s ease;
+    z-index: 1;
+}
+
+.card:hover::before {
+    left: 100%;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: rgba(13, 110, 253, 0.2);
+}
+
+.card-body {
+    position: relative;
+    z-index: 2;
+    padding: 1.5rem;
+}
+
+/* Title styling for "Latest Posts" */
+h1 {
+    color: #333;
+    font-weight: 700;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 2px;
+    animation: slideIn 0.8s ease-out 0.5s both;
+}
+
+@media (max-width: 768px) {
+    h1::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Style your avatar images */
+.rounded-circle {
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.rounded-circle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Style your Bootstrap person icons */
+.bi-person-circle:hover {
+    transform: scale(1.1);
+    color: var(--primary-color) !important;
+}
+
+/* Style your post images */
+.img-fluid {
+    border-radius: 12px;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.img-fluid:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Style your username links */
+.text-decoration-none.fw-bold.text-dark {
+    position: relative;
+    transition: var(--transition);
+}
+
+.text-decoration-none.fw-bold.text-dark::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.text-decoration-none.fw-bold.text-dark:hover {
+    color: var(--primary-color) !important;
+}
+
+.text-decoration-none.fw-bold.text-dark:hover::after {
+    width: 100%;
+}
+
+/* Enhanced button styling for your "View Post" and "Create New Post" buttons */
+.btn {
+    border-radius: 25px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    border: none;
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.btn-success {
+    background: var(--success-color);
+    border: none;
+    box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+    z-index: -1;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Animate your heart icons */
+.bi-heart-fill {
+    transition: var(--transition);
+}
+
+.text-danger:hover .bi-heart-fill {
+    animation: heartBeat 0.6s ease-in-out;
+    color: #ff6b6b !important;
+}
+
+/* Animate your comment icons */
+.bi-chat-left-dots-fill {
+    transition: var(--transition);
+}
+
+.text-primary:hover .bi-chat-left-dots-fill {
+    animation: bounce 0.5s ease-in-out;
+    color: #4dabf7 !important;
+}
+
+/* Style your like and comment count hover effects */
+.me-3, .text-primary {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 20px;
+    transition: var(--transition);
+}
+
+.me-3:hover, .text-primary:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+}
+
+/* Fade-in animation for your posts */
+.animate-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in:nth-child(1) { animation-delay: 0.1s; }
+.animate-fade-in:nth-child(2) { animation-delay: 0.2s; }
+.animate-fade-in:nth-child(3) { animation-delay: 0.3s; }
+.animate-fade-in:nth-child(4) { animation-delay: 0.4s; }
+.animate-fade-in:nth-child(5) { animation-delay: 0.5s; }
+.animate-fade-in:nth-child(6) { animation-delay: 0.6s; }
+
+/* Style your sidebar cards */
+.col-md-4 .card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.col-md-4 .card:hover {
+    transform: translateY(-5px) translateX(-3px);
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+/* Style your card titles */
+.card-title {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* Style your text content */
+.card-text {
+    line-height: 1.6;
+    transition: var(--transition);
+}
+
+/* Style your pagination */
+.pagination .page-link {
+    border-radius: 8px;
+    margin: 0 3px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.pagination .page-link:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
+}
+
+/* Loading animation for your post images */
+.img-fluid {
+    position: relative;
+}
+
+.img-fluid[src=""]:before,
+.img-fluid:not([src]):before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 12px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1.25rem;
+    }
+    
+    .card:hover {
+        transform: translateY(-4px);
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Keyframe animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        width: 0;
+    }
+    to {
+        width: 60px;
+    }
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(1.05); }
+    75% { transform: scale(1.15); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus states for accessibility */
+.btn:focus,
+.page-link:focus {
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+    outline: none;
+}
+
+/* Text selection styling */
+::selection {
+    background: rgba(13, 110, 253, 0.2);
+    color: inherit;
+}

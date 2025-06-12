@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Your App Name</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #f8f9fc;
+            --accent-color: #2e59d9;
+            --success-color: #1cc88a;
+        }
+        
+        body {
+            background-color: var(--secondary-color);
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .signup-container {
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .signup-card {
+            border: 0;
+            border-radius: 1rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            overflow: hidden;
+        }
+        
+        .signup-card-header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            border-bottom: 0;
+        }
+        
+        .signup-card-body {
+            padding: 2rem;
+            background-color: white;
+        }
+        
+        .form-control {
+            padding: 0.75rem 1rem;
+            border-radius: 0.35rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+        }
+        
+        .btn-signup {
+            background-color: var(--success-color);
+            border: none;
+            padding: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-signup:hover {
+            background-color: #17a673;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(28, 200, 138, 0.3);
+        }
+        
+        .password-strength {
+            height: 5px;
+            background-color: #e9ecef;
+            margin-top: 0.25rem;
+            border-radius: 3px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            background-color: #dc3545;
+            transition: width 0.3s, background-color 0.3s;
+        }
+        
+        .links-container {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .links-container a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .links-container a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #d1d3e2;
+            transition: all 0.3s;
+            z-index: 4;
+        }
+        
+        .input-group input {
+            padding-left: 2.5rem;
+        }
+        
+        .input-group input:focus + i {
+            color: var(--primary-color);
+        }
+        
+        /* Error messages animation */
+        .alert-danger {
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        
+        /* Success checkmark */
+        .success-checkmark {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: var(--success-color);
+            border-radius: 50%;
+            color: white;
+            text-align: center;
+            line-height: 20px;
+            margin-left: 5px;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s;
+        }
+        
+        .valid-field .success-checkmark {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="signup-container">
+            <div class="card signup-card">
+                <div class="card-header signup-card-header">
+                    <h2><i class="fas fa-user-plus me-2"></i>Sign up</h2>
+                </div>
+                <div class="card-body signup-card-body">
+                    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
+                        <%= render "devise/shared/error_messages", resource: resource %>
+                        
+                        <div class="input-group">
+                            <i class="fas fa-user-tag"></i>
+                            <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "form-control", placeholder: "Username", required: true %>
+                            <div class="invalid-feedback">
+                                Please choose a username.
+                            </div>
+                            <span class="success-checkmark"><i class="fas fa-check"></i></span>
+                        </div>
+                        
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <%= f.text_field :name, autocomplete: "name", class: "form-control", placeholder: "Full Name", required: true %>
+                            <div class="invalid-feedback">
+                                Please enter your name.
+                            </div>
+                            <span class="success-checkmark"><i class="fas fa-check"></i></span>
+                        </div>
+                        
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <%= f.email_field :email, autocomplete: "email", class: "form-control", placeholder: "Email", required: true %>
+                            <div class="invalid-feedback">
+                                Please provide a valid email.
+                            </div>
+                            <span class="success-checkmark"><i class="fas fa-check"></i></span>
+                        </div>
+                        
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Password", required: true %>
+                            <div class="invalid-feedback">
+                                Password must be at least <%= @minimum_password_length %> characters.
+                            </div>
+                            <div class="password-strength">
+                                <div class="password-strength-bar"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Confirm Password", required: true %>
+                            <div class="invalid-feedback">
+                                Passwords must match.
+                            </div>
+                            <span class="success-checkmark"><i class="fas fa-check"></i></span>
+                        </div>
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <%= f.submit "Sign up", class: "btn btn-signup btn-block" %>
+                        </div>
+                    <% end %>
+                    
+                    <div class="links-container mt-4">
+                        <%= render "devise/shared/links" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Form validation
+        (function () {
+            'use strict'
+            
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+            
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+        
+        // Password strength indicator
+        document.getElementById('user_password').addEventListener('input', function(e) {
+            const password = e.target.value;
+            const strengthBar = document.querySelector('.password-strength-bar');
+            let strength = 0;
+            
+            if (password.length > 0) strength += 20;
+            if (password.length >= 8) strength += 20;
+            if (/[A-Z]/.test(password)) strength += 20;
+            if (/[0-9]/.test(password)) strength += 20;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 20;
+            
+            strengthBar.style.width = strength + '%';
+            
+            if (strength < 40) {
+                strengthBar.style.backgroundColor = '#dc3545';
+            } else if (strength < 70) {
+                strengthBar.style.backgroundColor = '#ffc107';
+            } else {
+                strengthBar.style.backgroundColor = '#28a745';
+            }
+        });
+        
+        // Check if passwords match
+        document.getElementById('user_password_confirmation').addEventListener('input', function(e) {
+            const password = document.getElementById('user_password').value;
+            const confirmPassword = e.target.value;
+            const inputGroup = e.target.closest('.input-group');
+            
+            if (confirmPassword === password && password !== '') {
+                inputGroup.classList.add('valid-field');
+            } else {
+                inputGroup.classList.remove('valid-field');
+            }
+        });
+        
+        // Add validation for other fields
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('input', function() {
+                const inputGroup = this.closest('.input-group');
+                if (this.checkValidity() && this.value !== '') {
+                    inputGroup.classList.add('valid-field');
+                } else {
+                    inputGroup.classList.remove('valid-field');
+                }
+            });
+            
+            input.addEventListener('focus', function() {
+                this.parentElement.querySelector('i').style.color = '#4e73df';
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.parentElement.querySelector('i').style.color = '#d1d3e2';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
