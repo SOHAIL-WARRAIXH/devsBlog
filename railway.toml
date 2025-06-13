@@ -6,7 +6,7 @@ buildCommand = "bundle install && bundle exec rake assets:precompile"
 startCommand = "bundle exec puma -C config/puma.rb"
 healthcheckPath = "/"
 healthcheckTimeout = 100
-restartPolicyType = "on-failure"
+restartPolicyType = "Always"
 restartPolicyMaxRetries = 10
 
 [deploy.env]
