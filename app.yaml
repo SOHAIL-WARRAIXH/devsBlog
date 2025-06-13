@@ -1,0 +1,31 @@
+name: devsblog
+services:
+  - name: web
+    github:
+      branch: main
+      deploy_on_push: true
+      repo: SOHAIL-WARRAIXH/devsBlog
+    build_command: bundle install && bundle exec rake assets:precompile
+    run_command: bundle exec puma -C config/puma.rb
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    envs:
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_MASTER_KEY
+        type: SECRET
+        value: your_master_key_here
+      - key: RAILS_SERVE_STATIC_FILES
+        value: "true"
+      - key: DATABASE_URL
+        type: SECRET
+        value: ${db.DATABASE_URL}
+
+databases:
+  - engine: PG
+    name: db
+    production: false
+    cluster_name: devsblog-db
+    db_name: devsblog
+    db_user: devsblog 
