@@ -1,14 +1,22 @@
-[build]
-builder = "nixpacks"
-buildCommand = "chmod +x bin/rails && bundle install && bundle exec rake assets:precompile"
-
-[deploy]
-startCommand = "bundle exec puma -C config/puma.rb"
-healthcheckPath = "/"
-healthcheckTimeout = 100
-restartPolicyType = "Always"
-restartPolicyMaxRetries = 10
-
-[deploy.env]
-RAILS_ENV = "production"
-RAILS_SERVE_STATIC_FILES = "true" 
+{
+  "$schema": "https://railway.com/railway.schema.json",
+  "build": {
+    "builder": "DOCKERFILE",
+    "buildCommand": "chmod +x bin/rails && bundle install && bundle exec rake assets:precompile",
+    "dockerfilePath": "Dockerfile"
+  },
+  "deploy": {
+    "runtime": "V2",
+    "numReplicas": 1,
+    "startCommand": "bundle exec puma -C config/puma.rb",
+    "healthcheckPath": "/",
+    "sleepApplication": false,
+    "multiRegionConfig": {
+      "asia-southeast1-eqsg3a": {
+        "numReplicas": 1
+      }
+    },
+    "restartPolicyType": "ALWAYS",
+    "healthcheckTimeout": 100
+  }
+}
