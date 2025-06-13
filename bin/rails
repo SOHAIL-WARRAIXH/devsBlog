@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# This comment is added to force a Git update and ensure executable permissions are applied.
 APP_PATH = File.expand_path("../config/application", __dir__)
 require_relative "../config/boot"
 require "rails/commands"
